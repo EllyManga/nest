@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nest Delivery Services | Fast Nairobi Dispatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --navy:#050d1a;
+  --navy2:#0a1628;
+  --navy3:#0f2040;
+  --amber:#f59e0b;
+  --amber2:#fbbf24;
+  --green:#22c55e;
+  --white:#ffffff;
+  --muted:#8fadc7;
+  --card:#0d1f38;
+  --border:rgba(255,255,255,0.07);
+  --radius:14px;
+  --font-head:'Syne',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--navy);color:var(--white);font-family:var(--font-body);overflow-x:hidden;}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--navy);}
+::-webkit-scrollbar-thumb{background:var(--amber);border-radius:10px;}
+
+/* ─── NAVBAR ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:18px 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(5,13,26,0.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:.3s;}
+.logo{font-family:var(--font-head);font-weight:800;font-size:1.35rem;letter-spacing:-.5px;}
+.logo span{color:var(--amber);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:.2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{display:flex;gap:10px;align-items:center;}
+.btn-call{background:var(--amber);color:#000;border:none;padding:10px 22px;border-radius:40px;font-family:var(--font-head);font-weight:700;font-size:.85rem;cursor:pointer;text-decoration:none;transition:.25s;display:flex;align-items:center;gap:7px;}
+.btn-call:hover{background:var(--amber2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(245,158,11,.35);}
+.btn-wa{background:var(--green);color:#fff;border:none;padding:10px 22px;border-radius:40px;font-family:var(--font-head);font-weight:700;font-size:.85rem;cursor:pointer;text-decoration:none;transition:.25s;display:flex;align-items:center;gap:7px;}
+.btn-wa:hover{background:#16a34a;transform:translateY(-1px);box-shadow:0 8px 24px rgba(34,197,94,.35);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.hamburger span{width:24px;height:2px;background:var(--white);border-radius:2px;transition:.3s;}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--navy);z-index:998;flex-direction:column;align-items:center;justify-content:center;gap:36px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:var(--white);text-decoration:none;font-family:var(--font-head);font-size:1.6rem;font-weight:700;}
+
+/* ─── STICKY BOTTOM BAR (MOBILE) ─── */
+.sticky-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:997;background:var(--navy2);border-top:1px solid var(--border);padding:12px 16px;gap:10px;}
+.sticky-bar .btn-call,.sticky-bar .btn-wa{flex:1;justify-content:center;padding:13px;}
+
+/* ─── HERO SLIDER ─── */
+.hero{position:relative;height:100vh;min-height:640px;overflow:hidden;}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;display:flex;align-items:center;}
+.slide.active{opacity:1;z-index:2;}
+.slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 8s ease;}
+.slide.active .slide-bg{transform:scale(1.07);}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(5,13,26,.92) 45%,rgba(5,13,26,.3));}
+.slide-content{position:relative;z-index:3;max-width:600px;margin-left:7%;}
+.slide-tag{display:inline-block;background:var(--amber);color:#000;font-family:var(--font-head);font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:20px;}
+.slide-content h1{font-family:var(--font-head);font-size:clamp(2.2rem,5vw,4rem);font-weight:800;line-height:1.1;margin-bottom:18px;}
+.slide-content h1 em{color:var(--amber);font-style:normal;}
+.slide-content p{font-size:1.05rem;color:rgba(255,255,255,.75);max-width:460px;line-height:1.65;margin-bottom:32px;}
+.slide-btns{display:flex;flex-wrap:wrap;gap:12px;}
+.dots{position:absolute;bottom:36px;left:7%;z-index:5;display:flex;gap:8px;}
+.dot{width:28px;height:4px;background:rgba(255,255,255,.25);border-radius:2px;cursor:pointer;transition:.3s;}
+.dot.active{background:var(--amber);width:48px;}
+
+/* ─── GLOBE SECTION ─── */
+.globe-section{padding:80px 5%;text-align:center;background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%);position:relative;overflow:hidden;}
+.section-label{font-family:var(--font-head);font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+.globe-section h2{font-family:var(--font-head);font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin-bottom:12px;}
+.globe-section p{color:var(--muted);max-width:520px;margin:0 auto 48px;line-height:1.65;}
+#globe-wrap{position:relative;width:100%;max-width:680px;margin:0 auto;height:480px;}
+canvas#globe{display:block;margin:0 auto;border-radius:50%;box-shadow:0 0 80px rgba(245,158,11,.18),0 0 160px rgba(245,158,11,.06);}
+.globe-badge{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);background:var(--amber);color:#000;font-family:var(--font-head);font-weight:700;font-size:.8rem;padding:8px 20px;border-radius:20px;white-space:nowrap;letter-spacing:.5px;}
+#zoom-status{position:absolute;top:16px;left:50%;transform:translateX(-50%);color:var(--muted);font-size:.78rem;letter-spacing:1px;}
+
+/* ─── SECTION GENERIC ─── */
+section{padding:90px 5%;}
+.section-head{text-align:center;margin-bottom:60px;}
+.section-head h2{font-family:var(--font-head);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:14px;}
+.section-head p{color:var(--muted);max-width:560px;margin:0 auto;line-height:1.65;}
+
+/* ─── ABOUT ─── */
+.about{background:var(--navy2);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.about-img{position:relative;border-radius:20px;overflow:hidden;}
+.about-img img{width:100%;height:480px;object-fit:cover;display:block;border-radius:20px;}
+.about-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,158,11,.15),transparent);pointer-events:none;border-radius:20px;}
+.about-text h2{font-family:var(--font-head);font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;line-height:1.2;margin-bottom:20px;}
+.about-text h2 span{color:var(--amber);}
+.about-text p{color:var(--muted);line-height:1.7;margin-bottom:28px;font-size:.97rem;}
+.stat-row{display:flex;gap:32px;margin-bottom:36px;}
+.stat{text-align:left;}
+.stat strong{font-family:var(--font-head);font-size:2rem;font-weight:800;color:var(--amber);}
+.stat span{display:block;color:var(--muted);font-size:.82rem;margin-top:2px;}
+
+/* ─── SERVICES ─── */
+.services{background:var(--navy);}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+.srv-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px;transition:.35s;cursor:default;}
+.srv-card:hover{transform:translateY(-6px);border-color:rgba(245,158,11,.3);box-shadow:0 20px 50px rgba(0,0,0,.3);}
+.srv-icon{width:52px;height:52px;background:rgba(245,158,11,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.3rem;color:var(--amber);}
+.srv-card h3{font-family:var(--font-head);font-weight:700;font-size:1.05rem;margin-bottom:10px;}
+.srv-card p{color:var(--muted);font-size:.87rem;line-height:1.6;margin-bottom:22px;}
+.srv-btns{display:flex;flex-direction:column;gap:8px;}
+.srv-btns .btn-call,.srv-btns .btn-wa{font-size:.78rem;padding:9px 16px;justify-content:center;}
+
+/* ─── HOW IT WORKS ─── */
+.how{background:var(--navy2);}
+.steps{display:flex;justify-content:center;gap:0;flex-wrap:wrap;}
+.step{flex:1;min-width:200px;max-width:260px;text-align:center;padding:40px 24px;position:relative;}
+.step:not(:last-child)::after{content:'';position:absolute;top:52px;right:-1px;width:2px;height:60px;background:linear-gradient(to bottom,var(--amber),transparent);}
+.step-num{width:64px;height:64px;background:linear-gradient(135deg,var(--amber),#d97706);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:var(--font-head);font-size:1.4rem;font-weight:800;color:#000;}
+.step h3{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:10px;}
+.step p{color:var(--muted);font-size:.85rem;line-height:1.6;}
+
+/* ─── WHY CHOOSE ─── */
+.why{background:var(--navy);position:relative;overflow:hidden;}
+.why::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(245,158,11,.07) 0%,transparent 70%);pointer-events:none;}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+.why-img img{width:100%;height:460px;object-fit:cover;border-radius:20px;display:block;}
+.benefit-list{display:flex;flex-direction:column;gap:18px;}
+.benefit{display:flex;align-items:flex-start;gap:16px;padding:20px;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:.25s;}
+.benefit:hover{border-color:rgba(245,158,11,.25);}
+.benefit-icon{width:42px;height:42px;min-width:42px;background:rgba(245,158,11,.12);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--amber);font-size:1rem;}
+.benefit h4{font-family:var(--font-head);font-weight:700;font-size:.95rem;margin-bottom:4px;}
+.benefit p{color:var(--muted);font-size:.83rem;line-height:1.55;}
+
+/* ─── TESTIMONIALS ─── */
+.testimonials{background:var(--navy2);}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;}
+.testi-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;}
+.stars{color:var(--amber);margin-bottom:16px;font-size:.9rem;}
+.testi-card blockquote{color:rgba(255,255,255,.85);font-size:.93rem;line-height:1.7;margin-bottom:24px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:14px;}
+.testi-author img{width:46px;height:46px;border-radius:50%;object-fit:cover;}
+.testi-author strong{font-family:var(--font-head);font-size:.9rem;display:block;}
+.testi-author span{color:var(--muted);font-size:.78rem;}
+
+/* ─── FINAL CTA ─── */
+.final-cta{background:linear-gradient(135deg,var(--navy3) 0%,var(--navy) 100%);text-align:center;position:relative;overflow:hidden;}
+.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(245,158,11,.12) 0%,transparent 65%);pointer-events:none;}
+.final-cta h2{font-family:var(--font-head);font-size:clamp(2rem,5vw,3.5rem);font-weight:800;margin-bottom:16px;position:relative;}
+.final-cta h2 span{color:var(--amber);}
+.final-cta p{color:var(--muted);font-size:1.05rem;margin-bottom:40px;position:relative;}
+.cta-btns{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;position:relative;}
+.btn-call-lg{background:var(--amber);color:#000;padding:16px 36px;border-radius:50px;font-family:var(--font-head);font-weight:700;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:.3s;}
+.btn-call-lg:hover{background:var(--amber2);transform:translateY(-3px);box-shadow:0 16px 40px rgba(245,158,11,.4);}
+.btn-wa-lg{background:var(--green);color:#fff;padding:16px 36px;border-radius:50px;font-family:var(--font-head);font-weight:700;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:.3s;}
+.btn-wa-lg:hover{background:#16a34a;transform:translateY(-3px);box-shadow:0 16px 40px rgba(34,197,94,.4);}
+
+/* ─── FOOTER ─── */
+footer{background:#030a14;padding:50px 5% 28px;border-top:1px solid var(--border);}
+.foot-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+.foot-brand .logo{font-size:1.4rem;margin-bottom:12px;display:block;}
+.foot-brand p{color:var(--muted);font-size:.85rem;line-height:1.65;margin-bottom:20px;}
+.foot-col h4{font-family:var(--font-head);font-weight:700;font-size:.9rem;margin-bottom:16px;color:var(--amber);}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.foot-col ul a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:.2s;}
+.foot-col ul a:hover{color:var(--white);}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px;}
+.foot-bottom p{color:var(--muted);font-size:.8rem;}
+.foot-bottom a{color:var(--amber);text-decoration:none;}
+.foot-ctas{display:flex;gap:10px;}
+
+/* ─── REVEAL ANIMATIONS ─── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+.reveal-delay-3{transition-delay:.3s;}
+.reveal-delay-4{transition-delay:.4s;}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .nav-links{display:none;}
+  .nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .sticky-bar{display:flex;}
+  .about-grid,.why-grid{grid-template-columns:1fr;}
+  .about-img img,.why-img img{height:300px;}
+  .foot-inner{grid-template-columns:1fr;}
+  .step:not(:last-child)::after{display:none;}
+}
+@media(max-width:600px){
+  .slide-content{margin-left:5%;}
+  .stat-row{gap:20px;}
+  footer{padding-bottom:100px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="logo">Nest<span>.</span>Delivery</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#why">Why Us</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+    <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#how" onclick="toggleMenu()">How It Works</a>
+  <a href="#why" onclick="toggleMenu()">Why Us</a>
+  <a href="tel:+254700000000" class="btn-call" style="font-size:1rem;padding:14px 32px;"><i class="fas fa-phone"></i> Call Dispatch</a>
+  <a href="https://wa.me/254700000000" target="_blank" class="btn-wa" style="font-size:1rem;padding:14px 32px;"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+</div>
+
+<!-- STICKY MOBILE BAR -->
+<div class="sticky-bar">
+  <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+  <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+</div>
+
+<!-- HERO SLIDER -->
+<section class="hero" id="home">
+  <div class="slide active" id="slide-0">
+    <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=1600&q=80');"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Nairobi Dispatch</div>
+      <h1>Fast, Reliable Delivery<br>Across <em>Nairobi</em></h1>
+      <p>From packages to urgent documents — we deliver on time, every time. Same-day. Real-time updates.</p>
+      <div class="slide-btns">
+        <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1607082349566-187342175e2f?w=1600&q=80');"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Social Sellers</div>
+      <h1>Powering <em>Social Media</em><br>Businesses</h1>
+      <p>Seamless last-mile delivery for Instagram & TikTok sellers. Ship more, stress less.</p>
+      <div class="slide-btns">
+        <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" id="slide-2">
+    <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1600&q=80');"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Corporate Partners</div>
+      <h1>Your Trusted <em>Business</em><br>Delivery Partner</h1>
+      <p>From pharmacies to law firms — we keep your operations moving. Professional, discreet, dependable.</p>
+      <div class="slide-btns">
+        <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="dots">
+    <div class="dot active" onclick="goSlide(0)"></div>
+    <div class="dot" onclick="goSlide(1)"></div>
+    <div class="dot" onclick="goSlide(2)"></div>
+  </div>
+</section>
+
+<!-- GLOBE SECTION -->
+<section class="globe-section">
+  <div class="section-label">Our Coverage</div>
+  <h2 class="reveal">Rooted in Nairobi,<br>Ready for Everything</h2>
+  <p class="reveal reveal-delay-1">We operate across all major zones in Nairobi — from CBD to Westlands, Eastlands to Karen.</p>
+  <div id="globe-wrap">
+    <div id="zoom-status">Zooming to Nairobi...</div>
+    <canvas id="globe" width="480" height="480"></canvas>
+    <div class="globe-badge"><i class="fas fa-map-marker-alt"></i> &nbsp;Nairobi, Kenya — We Deliver Here</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-img reveal">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Delivery rider in Nairobi">
+    </div>
+    <div class="about-text reveal reveal-delay-1">
+      <div class="section-label">Who We Are</div>
+      <h2>Nairobi's Go-To <span>Dispatch Partner</span></h2>
+      <p>Nest Delivery Services is the trusted name for businesses and individuals who demand speed, professionalism, and real-time communication. We built our operations from the ground up in Nairobi, understanding every street, every shortcut, every neighbourhood.</p>
+      <p>Whether you're a boutique Instagram shop or a multi-branch pharmacy chain — we scale to your needs and deliver without excuses.</p>
+      <div class="stat-row">
+        <div class="stat"><strong>500+</strong><span>Deliveries/Month</span></div>
+        <div class="stat"><strong>98%</strong><span>On-Time Rate</span></div>
+        <div class="stat"><strong>24/7</strong><span>Dispatch Available</span></div>
+      </div>
+      <div class="slide-btns">
+        <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-head reveal">
+    <div class="section-label">What We Deliver</div>
+    <h2>Built for Every Business</h2>
+    <p>From lifestyle brands to essential services — Nest has a tailored dispatch solution for your industry.</p>
+  </div>
+  <div class="services-grid">
+
+    <div class="srv-card reveal">
+      <div class="srv-icon"><i class="fas fa-shopping-bag"></i></div>
+      <h3>Social Media Sellers</h3>
+      <p>Instagram shops, TikTok live sellers, and Facebook marketplace vendors. We pick up and deliver fast so your customers stay happy and repeat-buy.</p>
+      <div class="srv-btns">
+        <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+      </div>
+    </div>
+
+    <div class="srv-card reveal reveal-delay-1">
+      <div class="srv-icon"><i class="fas fa-pills"></i></div>
+      <h3>Pharmacies & Medical</h3>
+      <p>Prescription deliveries, medical supplies, and health products handled with urgency and discretion. Because health can't wait.</p>
+      <div class="srv-btns">
+        <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+      </div>
+    </div>
+
+    <div class="srv-card reveal reveal-delay-2">
+      <div class="srv-icon"><i class="fas fa-file-contract"></i></div>
+      <h3>Law Firms & Documents</h3>
+      <p>Confidential document delivery for legal professionals. We handle court filings, contracts, and sensitive materials with absolute reliability.</p>
+      <div class="srv-btns">
+        <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+      </div>
+    </div>
+
+    <div class="srv-card reveal">
+      <div class="srv-icon"><i class="fas fa-utensils"></i></div>
+      <h3>Restaurants & Food</h3>
+      <p>Hot food delivered on time. We partner with restaurants, cloud kitchens, and caterers to ensure meals arrive fresh every single time.</p>
+      <div class="srv-btns">
+        <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+      </div>
+    </div>
+
+    <div class="srv-card reveal reveal-delay-1">
+      <div class="srv-icon"><i class="fas fa-gift"></i></div>
+      <h3>Gift Shops & Surprises</h3>
+      <p>Birthdays, anniversaries, and surprise deliveries handled with care. We make sure the moment lands perfectly — packaging intact, smile guaranteed.</p>
+      <div class="srv-btns">
+        <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+      </div>
+    </div>
+
+    <div class="srv-card reveal reveal-delay-2">
+      <div class="srv-icon"><i class="fas fa-seedling"></i></div>
+      <h3>Flowers & Event Deliveries</h3>
+      <p>Florists and event planners trust us for time-critical deliveries. Bouquets, décor, and event materials — delivered right before the moment matters.</p>
+      <div class="srv-btns">
+        <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+      </div>
+    </div>
+
+    <div class="srv-card reveal reveal-delay-3">
+      <div class="srv-icon"><i class="fas fa-paw"></i></div>
+      <h3>Pet Stores & Specialty</h3>
+      <p>Pet food, accessories, and specialty goods from niche stores — delivered to owners who want the best for their animals, without the hassle.</p>
+      <div class="srv-btns">
+        <a href="tel:+254700000000" class="btn-call"><i class="fas fa-phone"></i> Call Dispatch</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-head reveal">
+    <div class="section-label">The Process</div>
+    <h2>Three Steps. Zero Stress.</h2>
+    <p>We've made dispatch as effortless as a WhatsApp message.</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <h3>Contact Dispatch</h3>
+      <p>Call or WhatsApp us with your pickup and drop-off details. We respond within minutes.</p>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="step-num">02</div>
+      <h3>Rider Assigned Instantly</h3>
+      <p>A professional rider nearest to you is dispatched immediately. No waiting games.</p>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-num">03</div>
+      <h3>Real-Time Delivery</h3>
+      <p>Your package moves. You stay updated. Delivery confirmed with direct communication.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why" id="why">
+  <div class="why-grid">
+    <div class="why-img reveal">
+      <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80" alt="Professional team Nairobi">
+    </div>
+    <div>
+      <div class="section-label">Why Nest</div>
+      <h2 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;margin-bottom:32px;">The Standard Others<br>Can't Match</h2>
+      <div class="benefit-list">
+        <div class="benefit reveal">
+          <div class="benefit-icon"><i class="fas fa-bolt"></i></div>
+          <div><h4>Lightning Response Times</h4><p>Dispatch confirmation in under 5 minutes. Pickup usually within 30 minutes in Nairobi.</p></div>
+        </div>
+        <div class="benefit reveal reveal-delay-1">
+          <div class="benefit-icon"><i class="fas fa-user-shield"></i></div>
+          <div><h4>Vetted, Professional Riders</h4><p>Every rider on our network is screened, trained, and accountable — not a random app stranger.</p></div>
+        </div>
+        <div class="benefit reveal reveal-delay-2">
+          <div class="benefit-icon"><i class="fas fa-comments"></i></div>
+          <div><h4>Real-Time Communication</h4><p>Direct WhatsApp line to dispatch. Know exactly where your package is at every moment.</p></div>
+        </div>
+        <div class="benefit reveal reveal-delay-3">
+          <div class="benefit-icon"><i class="fas fa-tag"></i></div>
+          <div><h4>Genuinely Affordable Rates</h4><p>Transparent pricing built for small businesses and hustlers — not just corporates with big budgets.</p></div>
+        </div>
+        <div class="benefit reveal">
+          <div class="benefit-icon"><i class="fas fa-building"></i></div>
+          <div><h4>Scales With Your Business</h4><p>Whether you send 3 packages a week or 300 — we flex around your volume without penalties.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-head reveal">
+    <div class="section-label">Client Stories</div>
+    <h2>Trusted by Nairobi Businesses</h2>
+    <p>Real feedback from businesses who rely on Nest every day.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <blockquote>"I run an Instagram boutique and Nest has completely transformed how I operate. My customers now get same-day deliveries and the feedback has been incredible. They respond on WhatsApp instantly — that alone is worth everything."</blockquote>
+      <div class="testi-author">
+        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&q=80" alt="Amara Odhiambo">
+        <div><strong>Amara Odhiambo</strong><span>Instagram Boutique Owner, Westlands</span></div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-delay-1">
+      <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <blockquote>"As a pharmacy, we needed a partner we could trust with prescription deliveries. Nest has never let us down — discreet, fast, and always professional. Our elderly customers especially love the service."</blockquote>
+      <div class="testi-author">
+        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&q=80" alt="Dr. Kamau Njoroge">
+        <div><strong>Dr. Kamau Njoroge</strong><span>MediCare Pharmacy, Kilimani</span></div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-delay-2">
+      <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <blockquote>"Our law firm deals in time-sensitive documents daily. Nest understands urgency like no one else. Confidential, punctual, and they always confirm delivery. Exactly what a professional firm needs."</blockquote>
+      <div class="testi-author">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80" alt="Brian Mutua">
+        <div><strong>Brian Mutua</strong><span>Partner, Mutua & Associates Advocates</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2 class="reveal">Need Something Delivered<br><span>Right Now?</span></h2>
+  <p class="reveal reveal-delay-1">Our dispatch team is standing by — just one call or message away.</p>
+  <div class="cta-btns reveal reveal-delay-2">
+    <a href="tel:+254700000000" class="btn-call-lg"><i class="fas fa-phone"></i> Call Dispatch Now</a>
+    <a href="https://wa.me/254700000000" target="_blank" class="btn-wa-lg"><i class="fab fa-whatsapp"></i> Chat with Dispatch</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <span class="logo">Nest<span>.</span>Delivery</span>
+      <p>Nairobi's trusted last-mile delivery partner for businesses of all sizes. Fast, professional, and always reachable.</p>
+      <div class="foot-ctas">
+        <a href="tel:+254700000000" class="btn-call" style="font-size:.8rem;padding:9px 16px;"><i class="fas fa-phone"></i> Call</a>
+        <a href="https://wa.me/254700000000" target="_blank" class="btn-wa" style="font-size:.8rem;padding:9px 16px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Social Media Sellers</a></li>
+        <li><a href="#services">Pharmacy Delivery</a></li>
+        <li><a href="#services">Legal Documents</a></li>
+        <li><a href="#services">Restaurant Delivery</a></li>
+        <li><a href="#services">Gift & Flower Delivery</a></li>
+        <li><a href="#services">Specialty Goods</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+254700000000"><i class="fas fa-phone" style="color:var(--amber);width:18px;"></i> +254 700 000 000</a></li>
+        <li><a href="https://wa.me/254700000000" target="_blank"><i class="fab fa-whatsapp" style="color:var(--green);width:18px;"></i> WhatsApp Dispatch</a></li>
+        <li><a href="#"><i class="fas fa-map-marker-alt" style="color:var(--amber);width:18px;"></i> Nairobi, Kenya</a></li>
+        <li><a href="#"><i class="fas fa-clock" style="color:var(--amber);width:18px;"></i> Mon–Sun, 7am–10pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2025 Nest Delivery Services. All rights reserved. Nairobi, Kenya.</p>
+    <p>Website by <a href="https://madshaqdigitalpr.com" target="_blank">Madshaq Digital PR</a></p>
+  </div>
+</footer>
+
+<script>
+// ─── SLIDER ───
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+function goSlide(n){
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = n;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+setInterval(()=>goSlide((currentSlide+1)%slides.length), 5500);
+
+// ─── MOBILE MENU ───
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// ─── NAVBAR SCROLL ───
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').style.background =
+    window.scrollY>60 ? 'rgba(5,13,26,.97)' : 'rgba(5,13,26,.88)';
+});
+
+// ─── GLOBE ───
+(function(){
+  const canvas = document.getElementById('globe');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W/2, cy = H/2, R = W/2 - 10;
+
+  // Phases: 0=spinning globe, 1=zooming to Africa, 2=showing Kenya/Nairobi
+  let phase = 0;
+  let phaseTimer = 0;
+  let globeRot = 0;
+  let zoomScale = 1;
+  let zoomProg = 0;
+  const statusEl = document.getElementById('zoom-status');
+
+  // Simple continent outlines as lat/lon polygons (simplified)
+  const continents = [
+    // Africa
+    [[37,-5],[42,11],[43,28],[35,37],[22,37],[12,44],[2,42],[-5,39],[-11,36],[-25,32],[-34,25],[-35,18],[-29,17],[-18,12],[-17,0],[-4,-8],[3,-6],[4,-1],[1,8],[-5,10],[-2,18],[5,23],[14,22],[22,30],[33,31],[37,22],[38,15],[42,11]],
+    // Europe
+    [[36,-5],[38,28],[55,37],[71,28],[70,22],[58,10],[55,8],[60,5],[65,14],[71,26],[70,30],[55,22],[50,18],[45,13],[44,3],[37,-5]],
+    // Asia (simplified)
+    [[38,28],[43,52],[55,68],[72,68],[77,45],[40,50],[34,36],[38,28]],
+    // Americas (very rough)
+    [[50,-66],[66,-62],[72,-78],[60,-94],[30,-85],[10,-77],[-10,-75],[-55,-70],[-55,-64],[-30,-50],[-20,-40],[0,-50],[10,-60],[20,-87],[30,-100],[50,-90],[50,-66]],
+    // Australia
+    [[-14,130],[-24,153],[-38,145],[-39,144],[-35,137],[-32,115],[-22,114],[-14,130]],
+  ];
+
+  // Kenya outline (simplified)
+  const kenya = [[4,41],[2,40],[-1,42],[-4,40],[-5,34],[-1,35],[4,35],[4,37],[4,41]];
+
+  // Convert lat/lon to x/y on globe
+  function latLonToXY(lat, lon, rot, scale, ox, oy){
+    const phi = lat * Math.PI/180;
+    const lam = (lon + rot) * Math.PI/180;
+    const x3 = Math.cos(phi)*Math.cos(lam);
+    const y3 = Math.sin(phi);
+    const z3 = Math.cos(phi)*Math.sin(lam);
+    if(z3 < 0) return null; // behind
+    return {
+      x: ox + x3 * R * scale,
+      y: oy - y3 * R * scale,
+      z: z3
+    };
+  }
+
+  function drawGlobe(rot, scale, ox, oy){
+    ctx.clearRect(0, 0, W, H);
+
+    // Ocean
+    const grad = ctx.createRadialGradient(cx-R*0.2, cy-R*0.2, R*0.1, cx, cy, R*scale);
+    grad.addColorStop(0, '#0d2d5e');
+    grad.addColorStop(1, '#030d1f');
+    ctx.beginPath();
+    ctx.arc(cx, cy, R*scale, 0, Math.PI*2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Glow
+    ctx.beginPath();
+    ctx.arc(cx, cy, R*scale, 0, Math.PI*2);
+    ctx.strokeStyle = 'rgba(245,158,11,0.3)';
+    ctx.lineWidth = 2*scale;
+    ctx.stroke();
+
+    // Grid lines
+    ctx.globalAlpha = 0.1;
+    for(let lon=-180;lon<=180;lon+=30){
+      ctx.beginPath();
+      let first=true;
+      for(let lat=-90;lat<=90;lat+=5){
+        const p = latLonToXY(lat,lon,rot,scale,cx,cy);
+        if(!p){first=true;continue;}
+        if(first){ctx.moveTo(p.x,p.y);first=false;}
+        else ctx.lineTo(p.x,p.y);
+      }
+      ctx.strokeStyle='#4fa3e0';ctx.lineWidth=.5;ctx.stroke();
+    }
+    for(let lat=-60;lat<=60;lat+=30){
+      ctx.beginPath();let first=true;
+      for(let lon=-180;lon<=180;lon+=5){
+        const p=latLonToXY(lat,lon,rot,scale,cx,cy);
+        if(!p){first=true;continue;}
+        if(first){ctx.moveTo(p.x,p.y);first=false;}
+        else ctx.lineTo(p.x,p.y);
+      }
+      ctx.strokeStyle='#4fa3e0';ctx.lineWidth=.5;ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    // Continents
+    continents.forEach(pts=>{
+      ctx.beginPath();
+      let first=true;
+      pts.forEach(([lat,lon])=>{
+        const p=latLonToXY(lat,lon,rot,scale,cx,cy);
+        if(!p){first=true;return;}
+        if(first){ctx.moveTo(p.x,p.y);first=false;}
+        else ctx.lineTo(p.x,p.y);
+      });
+      ctx.closePath();
+      ctx.fillStyle='rgba(34,80,60,0.75)';
+      ctx.fill();
+      ctx.strokeStyle='rgba(80,160,100,0.5)';
+      ctx.lineWidth=1;
+      ctx.stroke();
+    });
+
+    // Kenya highlight (phase 2)
+    if(phase >= 2){
+      const alphaK = Math.min(1, (phaseTimer-60)/40);
+      ctx.globalAlpha = alphaK;
+      ctx.beginPath();
+      let first=true;
+      kenya.forEach(([lat,lon])=>{
+        const p=latLonToXY(lat,lon,rot,scale,cx,cy);
+        if(!p){first=true;return;}
+        if(first){ctx.moveTo(p.x,p.y);first=false;}
+        else ctx.lineTo(p.x,p.y);
+      });
+      ctx.closePath();
+      ctx.fillStyle='rgba(245,158,11,0.5)';
+      ctx.fill();
+      ctx.strokeStyle='#f59e0b';
+      ctx.lineWidth=2;
+      ctx.stroke();
+      ctx.globalAlpha=1;
+
+      // Nairobi dot
+      const nairobiLat = -1.28, nairobiLon = 36.82;
+      const p = latLonToXY(nairobiLat, nairobiLon, rot, scale, cx, cy);
+      if(p){
+        // Pulse
+        const pulse = Math.sin(Date.now()/400)*0.4+0.6;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,12*pulse,0,Math.PI*2);
+        ctx.fillStyle='rgba(245,158,11,0.2)';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,6,0,Math.PI*2);
+        ctx.fillStyle='#f59e0b';
+        ctx.fill();
+        // Label
+        ctx.fillStyle='#ffffff';
+        ctx.font=`bold ${Math.max(11,13*scale)}px Syne,sans-serif`;
+        ctx.fillText('Nairobi', p.x+10, p.y-8);
+      }
+    }
+  }
+
+  let frame = 0;
+  // Target: Africa centered around lon=20, lat=0
+  // Nairobi lon=36.82 → we want lon offset so Nairobi faces viewer
+  // viewer faces lon=0 on globe, so rot = -36.82 to put Nairobi center
+  const targetRot = -36.82;
+  const startRot = 0;
+  const targetZoom = 2.2;
+
+  function animate(){
+    frame++;
+    phaseTimer++;
+
+    if(phase===0){
+      // Spin globe
+      globeRot += 0.4;
+      drawGlobe(globeRot, 1, cx, cy);
+      if(phaseTimer > 180){ // ~3s
+        phase=1; phaseTimer=0;
+        statusEl.textContent='Locating Kenya...';
+      }
+    } else if(phase===1){
+      // Rotate to Africa and zoom
+      zoomProg = Math.min(1, phaseTimer/120);
+      const ease = 1 - Math.pow(1-zoomProg,3);
+      const curRot = startRot + (targetRot - startRot) * ease;
+      const curZoom = 1 + (targetZoom-1)*ease;
+      // Adjust center to Kenya
+      const kx = cx - 0.15*R*curZoom;
+      const ky = cy + 0.02*R*curZoom;
+      drawGlobe(curRot, curZoom, kx+(cx-kx)*(1-ease), ky+(cy-ky)*(1-ease), );
+      globeRot = curRot;
+      zoomScale = curZoom;
+      if(phaseTimer>120){
+        phase=2; phaseTimer=0;
+        statusEl.textContent='';
+        statusEl.style.opacity=0;
+      }
+    } else {
+      // Hold on Kenya, gentle pulse
+      const kx = cx - 0.15*R*targetZoom;
+      const ky = cy + 0.02*R*targetZoom;
+      drawGlobe(targetRot, targetZoom, kx, ky);
+    }
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+</script>
+</body>
+</html>
